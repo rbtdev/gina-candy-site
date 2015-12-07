@@ -33,7 +33,7 @@ $('#favorites')
             }).appendTo(favList);
         $('#favorites').css('background-color','#A858A3');
         
-		function saveFaves();
+		saveFaves();
 		
 		evt.stopPropagation();
         return false;
@@ -45,7 +45,7 @@ $('#favorites')
 	loadFaves();
 	
 	function loadFaves(){
-		if (localStorage.getItem('favorites'){
+		if (localStorage.getItem('favorites')){
 			theFaves.innerHTML = localStorage.getItem('favorites');
 			}
 		}

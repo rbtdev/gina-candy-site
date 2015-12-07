@@ -1,7 +1,7 @@
 // JavaScript Document
 /*
  * Copyright 2010 Guillaume Bort
- * http://github.com/guillaumebort/jquery-ndd
+ * http://github.com/guillaumebort/$-ndd
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@
 // Fix styles
 
 
-jQuery(function() {
-    jQuery('head').append('<style type="text/css">[draggable=true] {-webkit-user-drag: element; -webkit-user-select: none; -moz-user-select: none;}</style>');
+$(function() {
+    $('head').append('<style type="text/css">[draggable=true] {-webkit-user-drag: element; -webkit-user-select: none; -moz-user-select: none;}</style>');
 })
 
 // Fix events fix...
-var originalFix = jQuery.event.fix;
-jQuery.event.fix = function(event) {
+var originalFix = $.event.fix;
+$.event.fix = function(event) {
     event = originalFix.apply(this, [event]);
     if( event.type.indexOf('drag') == 0 || event.type.indexOf('drop') == 0 ) {
         event.dataTransfer = event.originalEvent.dataTransfer;
@@ -33,19 +33,19 @@ jQuery.event.fix = function(event) {
     return event;
 }
 // Add Drag&Drop handlers
-jQuery.each( ("drag dragenter dragleave dragover dragend drop dragstart").split(" "), function( i, name ) {7
+$.each( ("drag dragenter dragleave dragover dragend drop dragstart").split(" "), function( i, name ) {7
 
     // Handle event binding
-    jQuery.fn[ name ] = function( fn ) {
+    $.fn[ name ] = function( fn ) {
         return fn ? this.bind( name, fn ) : this.trigger( name );
     };
 
-    if ( jQuery.attrFn ) {
-        jQuery.attrFn[ name ] = true;
+    if ( $.attrFn ) {
+        $.attrFn[ name ] = true;
     }
 });
 // Live draggable's && droppable's
-jQuery.fn.extend({
+$.fn.extend({
 
     draggable: function(start, end) {
 
@@ -99,7 +99,7 @@ jQuery.fn.extend({
 
                 if(!currents[this.uuid].hover) {
                     var accepted = false;
-                    if(jQuery.isFunction(accept)) {
+                    if($.isFunction(accept)) {
                         accepted = accept.apply(this, [e])
                     } else {
                         var types = accept.toString().split(' ');
