@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Candy store</title>
+<link href="styles.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+	<nav>
+    	<ul>
+        	<li>Candy Store</li>
+        	<li><a href ="index.html">Home</a></li>
+        </ul>
+	</nav>
+	<br />
+    <main>
+    	<article id="gallery" class="post">
+      <div id="candy1" class="painting" draggable="true" ><img src="images/candy-corn.jpg" width="200" height="200" title="Candy Corn $25" style="float: left; margin: 10px"/>
+      </div>
+      <div id="candy2" class="painting" draggable="true"><img src="images/candycanes.jpg" width="200" height="200" title="Candy Canes $40" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy3" class="painting" draggable="true"><img src="images/easter-eggs.jpg" width="200" height="200" title="Chocoloate Eggs $7" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy4" class="painting" draggable="true"><img src="images/fruit-gummies.jpg" width="200" height="200" title="Fruit Gummies $7" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy5" class="painting" draggable="true"><img src="images/gummy-bears.jpg" width="200" height="200" title="Gummy Bears $15" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy6" class="painting" draggable="true"><img src="images/m&ms.jpg" width="200" height="200" title="MM's $20" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy7" class="painting" draggable="true"><img src="images/skittles.jpg" width="200" height="200" title="Skittles $35" style="float: left; margin: 10px""/>
+      </div>
+      <div id="candy8" class="painting lastOne" draggable="true"><img src="images/starburst.jpg" width="200" height="200" title="Starburst $5" style="float: left; margin: 10px""/>
+      </div>
+
+</article>
+	</main>
+    <aside>
+   <section class="info">
+      <div class="widget">
+        <h2>Price Slider</h2>
+        <form name="form1" method="post" action="">
+          <p>
+            <input id="slider" type="range" min="1" max="50" step="1" value="50" onchange="printValue('slider','rangeValue')" />
+	        <input id="rangeValue" type="text" size="2"/>
+          </p>
+        </form>
+      </div>
+    </form>
+   <div id="favorites" class="widget">
+        <h2>Favorites</h2>
+        <p style="border: dashed 5px !important; padding: 20px;">Drag Favorites Here <br><br></p>
+        <ul id="faves"></ul>
+      </div>
+      </section>
+    </aside>
+	<footer>
+	</footer>
+    <script type="text/javascript" src="jquery.ndd.js"></script>
+<script type="text/javascript" src="dragdrop.js"></script>
+<script>
+        function printValue(sliderID, textbox) {
+            var x = document.getElementById(textbox);
+            var y = document.getElementById(sliderID);
+            x.value = y.value;
+        }
+
+        window.onload = function() { printValue('slider', 'rangeValue') }
+</script>
+<script>
+	$('#candy1').data({ id:1, price:25 });
+	$('#candy2').data({ id:2, price:40 });
+	$('#candy3').data({ id:3, price:7 });
+	$('#candy4').data({ id:4, price:15 });
+	$('#candy5').data({ id:5, price:20 });
+	$('#candy6').data({ id:6, price:35 });
+	$('#candy7').data({ id:7, price:3 });
+	$('#candy8').data({ id:8, price:5 });
+
+	$(document).ready(function () {
+		var theValue;
+
+		$("#slider").change(function() {
+			theValue = $("#rangeValue").val();
+			filterItems(theValue) ;
+		});
+	});
+
+	function filterItems(priceCriteria)
+	{
+		$.each($('#gallery div'), function(i, item) {
+			$item = $(item); 
+			itemData = $item.data();
+			if(itemData.price <= priceCriteria) 
+			{
+				$item.animate({opacity: 1});
+				itemData.matching = true;
+			}
+			else
+			{
+				$item.animate({opacity: 0.5});
+				itemData.matching = false;
+			}
+		});
+	}
+</script>
+</body>
+</html>
